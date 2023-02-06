@@ -58,7 +58,7 @@ def lambda_handler(event, context):
     s3.download_file(s3_source_bucket, s3_source_key, local_file_path)
     
     # Sample images based on given interval and store images to local disk
-    ffmpeg_cmd = f"/opt/bin/ffmpeg -i {local_file_path} -r {sample_frequency} {LOCAL_DIR}/%06d{IMAGE_NAME_EXTENSION}"
+    ffmpeg_cmd = f"/opt/bin/ffmpeg -i {local_file_path} -r {sample_frequency} {LOCAL_DIR}/%07d{IMAGE_NAME_EXTENSION}"
     cmd = ffmpeg_cmd.split(' ')
     p1 = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     
