@@ -19,32 +19,54 @@ The Lambda function manages the below logical steps in one place:
 5. Consolidate the result to the Rekognition Video moderation API response format
 6. Send the result to an SNS topic (if provided)
 
-You can call this Lambda function from your existing code by invoke it in async mode as below:
+Invoke the Lambda function from your existing code in async mode as below:
 ```
-import boto3
+import boto3, json
 lambda = boto3.client("lambda")
 lambda.invoke_async(
-    FunctionName='string',
-    InvokeArgs=b'bytes'|file
+    FunctionName='TheLambdaFunctionName',
+    InvokeArgs=json.dumps(
+        {
+          "s3_source_bucket": "MyS3Bucket",
+          "s3_source_key": "/path/to/video.mp4",
+          "s3_target_bucket": "OPTIONAL_BUCKET_KEEP_TEMP_FILES", # if you don't have read access to source bucket
+          "s3_target_folder": "/temp/folder", # Temp folder keeps staging files, such as sampled images and moderation result
+          "sample_frequency": 2, # numbers of images per second
+          "min_confidence": 50, # Confidence threshold
+          "sns_topic_arn": "arn:aws:sns:us-east-1:122702569249:cm-rek-video-sampling-topic" # Optional
+        }
+    )
 )
 
 ```
-This solution is light to deploy but may timeout if the video is too long, with a high resolution, and requires to sample the video in a high frequency.
+This solution is light to deploy but only suitable for short-form videos. It may timeout if the video is too long, with a high resolution, and requires to sample the video in a high frequency.
+The max timeout setting for Lambda is 15 minutes.
 
 ### Step Functions + Lambda
 This solution uses Step Functions state machine to orchestrate Lambda functions. 
 It prevents the timeout issue could happen in the first single Lambda function solution, as the workflow will iterate through the sampled images and call a Lambda function one by one.
 It is ideal for use cases when you need to moderate large videos in a high frequency.
+
 ![Step Functions workflow digram](static/rek-video-sampling-stepfunctions.png)
 
 Invoke Step Functions state machine using Boto3
 ```
-import boto3
+import boto3, json
 sfn = boto3.client('stepfunctions')
 sfn.start_execution(
-    stateMachineArn='string',
-    name='string',
-    input='string',
+    stateMachineArn='StepFunctionStateMachineArn',
+    name='GiveItAName',
+    input=json.dumps(
+        {
+          "s3_source_bucket": "MyS3Bucket",
+          "s3_source_key": "/path/to/video.mp4",
+          "s3_target_bucket": "OPTIONAL_BUCKET_KEEP_TEMP_FILES", # if you don't have read access to source bucket
+          "s3_target_folder": "/temp/folder", # Temp folder keeps staging files, such as sampled images and moderation result
+          "sample_frequency": 2, # numbers of images per second
+          "min_confidence": 50, # Confidence threshold
+          "sns_topic_arn": "arn:aws:sns:us-east-1:122702569249:cm-rek-video-sampling-topic" # Optional
+        }
+    ),
 )
 ```
 
