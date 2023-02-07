@@ -154,14 +154,14 @@ cdk bootstrap aws://${CDK_DEFAULT_ACCOUNT}/${CDK_DEFAULT_REGION}
 
 8. Deploy CDK package
 ```
-# Deloy both solutions
+// Deloy both solutions
 cdk deploy --all --requires-approval never
 ```
 ```
-# Deloy the Lambda solution
-cdk deploy LambdaAllInOneStack --requires-approval never 
+// Deloy the Lambda solution
+cdk deploy LambdaAllInOneStack
 ```
 ```
-# Deloy the Step Functions solution
-cdk deploy StepFunctionWorkflowStack --requires-approval never 
+// Deloy the Step Functions solution
+cdk deploy StepFunctionWorkflowStack 
 ```

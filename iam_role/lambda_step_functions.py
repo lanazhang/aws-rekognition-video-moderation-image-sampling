@@ -36,4 +36,30 @@ def create_role(self, region, account_id):
             resources=["*"]
         )
     )
+    # Lambda invoke
+    new_role.add_to_policy(
+        _iam.PolicyStatement(
+            actions=["lambda:InvokeFunction"],
+            resources=[f"arn:aws:lambda:{region}:{account_id}:*"]
+        )
+    )   
+    # StepFunctions
+    # Lambda invoke
+    new_role.add_to_policy(
+        _iam.PolicyStatement(
+            actions=["states:*"],
+            resources=["*"]
+        )
+    )   
+    # X-ray
+    new_role.add_to_policy(
+        # DynamoDB access
+        _iam.PolicyStatement(
+            actions=["xray:PutTelemetryRecords", 
+            "xray:GetSamplingTargets",
+            "xray:PutTraceSegments",
+            "xray:GetSamplingRules"],
+            resources=["*"]
+        )
+    )  
     return new_role
