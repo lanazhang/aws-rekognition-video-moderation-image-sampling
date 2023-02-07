@@ -3,9 +3,10 @@
 
 Amazon Rekognition is an AWS AI service that offers pre-trained APIs to support image and video moderation. 
 
+<!--
 One approach to moderate videos is to model video data as a sample of image frames and use image content moderation models to process the frames individually. 
 For more information about Rekognition video moderation comparision, refer to [this blog post](https://aws.amazon.com/blogs/machine-learning/how-to-decide-between-amazon-rekognition-image-and-video-api-for-video-moderation/) which compares the image and video APIs in terms of accuracy, cost, performance and architectural complexity.
-
+-->
 This repo contains two solutions to help you to implement video moderation using Rekognition image API. 
 Both solutions offer a similiar interface as the Rekognition Video moderation API. 
 So you can easily replace your logic to switch to Image moderation API.
