@@ -73,6 +73,8 @@ sfn.start_execution(
 )
 ```
 
+You can test the Lambda or the Step Functions solutions directly by sending the JSON payload to the Lambda and Step Functions state machine using the AWS console, CLI, or SDK.
+
 ### Install environment dependencies and set up authentication
 <details><summary>
 :bulb: You can skip this section if using CloudShell to deploy the CDK package or the other AWS services support bash command from the same AWS account (ex. Cloud9). This section is required if you run from a self-managed environment such as a local desktop.
