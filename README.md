@@ -10,6 +10,8 @@ This repo contains two solutions to help you to implement video moderation using
 Both solutions offer a similiar interface as the Rekognition Video moderation API. 
 So you can easily replace your logic to switch to Image moderation API.
 
+You can deploy the two solutions to your AWS account using CDK by following the instruction.
+
 ### All-in-one Lambda function
 The Lambda function manages the below logical steps in one place:
 1. Download the video from the S3 bucket to the local disk
@@ -151,5 +153,14 @@ cdk bootstrap aws://${CDK_DEFAULT_ACCOUNT}/${CDK_DEFAULT_REGION}
 
 8. Deploy CDK package
 ```
+# Deloy both solutions
 cdk deploy --all --requires-approval never
+```
+```
+# Deloy the Lambda solution
+cdk deploy LambdaAllInOneStack --requires-approval never 
+```
+```
+# Deloy the Step Functions solution
+cdk deploy StepFunctionWorkflowStack --requires-approval never 
 ```
