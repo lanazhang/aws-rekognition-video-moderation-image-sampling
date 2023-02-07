@@ -25,8 +25,8 @@ The Lambda function manages the below logical steps in one place:
 Invoke the Lambda function from your existing code in async mode as below:
 ```
 import boto3, json
-lambda = boto3.client("lambda")
-lambda.invoke_async(
+lbd = boto3.client("lambda")
+lbd.invoke_async(
     FunctionName='TheLambdaFunctionName',
     InvokeArgs=json.dumps(
         {
