@@ -8,8 +8,11 @@ from iam_role import policy
 
 def create_role(self, region, account_id):
     # IAM role
-    new_role = _iam.Role(self, "lambda-step-function",
-        assumed_by=_iam.ServicePrincipal("lambda.amazonaws.com"),
+    new_role = _iam.Role(self, "lambda-start-moderation-role",
+        assumed_by=_iam.CompositePrincipal(
+            _iam.ServicePrincipal("states.amazonaws.com"),
+            _iam.ServicePrincipal("lambda.amazonaws.com"),
+        )
     )
     new_role.add_to_policy(
         # S3 read access
