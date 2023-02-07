@@ -25,8 +25,9 @@ The Lambda function manages the below logical steps in one place:
 Invoke the Lambda function from your existing code in async mode as below:
 ```
 import boto3, json
-lbd = boto3.client("lambda")
-lbd.invoke_async(
+lambda_client = boto3.client("lambda")
+
+lambda_client.invoke_async(
     FunctionName='TheLambdaFunctionName',
     InvokeArgs=json.dumps(
         {
@@ -55,8 +56,9 @@ It is ideal for use cases when you need to moderate large videos in a high frequ
 Invoke Step Functions state machine using Boto3
 ```
 import boto3, json
-sfn = boto3.client('stepfunctions')
-sfn.start_execution(
+sfn_client = boto3.client('stepfunctions')
+
+sfn_client.start_execution(
     stateMachineArn='StepFunctionStateMachineArn',
     name='GiveItAName',
     input=json.dumps(
