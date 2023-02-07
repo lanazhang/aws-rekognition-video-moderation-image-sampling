@@ -22,6 +22,10 @@ The Lambda function manages the below logical steps in one place:
 5. Consolidate the result to the Rekognition Video moderation API response format
 6. Send the result to an SNS topic (if provided)
 
+[Lambda source code](lambda/all-in-one/rek-video-image-sampling.py)
+
+[Deploymnet logic with Lambda Layer](video_sampling/lambda_stack.py)
+
 Invoke the Lambda function from your existing code in async mode as below:
 ```
 import boto3, json
@@ -74,6 +78,16 @@ sfn_client.start_execution(
     ),
 )
 ```
+
+[Step Functions source code](stepfunctions/rek-video-moderation-image-sampling.json)
+
+[Lambda: capture images from video](lambda/capture-frames/rek-video-image-sampling-capture-frames.py)
+
+[Lambda: moderate image](lambda/moderate-image/rek-video-image-sampling-moderate-image.py)
+
+[Lambda: consolidation](lambda/consolidation/rek-video-image-sampling-consolidate.py)
+
+[Deploymnet logic](video_sampling/stepfunction_stack.py)
 
 You can test the Lambda or the Step Functions solutions directly by sending the JSON payload to the Lambda and Step Functions state machine using the AWS console, CLI, or SDK.
 

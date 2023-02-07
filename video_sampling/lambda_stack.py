@@ -27,7 +27,7 @@ class LambdaStack(Stack):
                                      compatible_runtimes=[_lambda.Runtime.PYTHON_3_9],
                                      removal_policy=RemovalPolicy.DESTROY
                                      )
-        # Create Lambdas
+
         # Lambda: rek-video-image-sampling
         lambda_s3_trigger = _lambda.Function(self, 
             id='s3-trigger', 
