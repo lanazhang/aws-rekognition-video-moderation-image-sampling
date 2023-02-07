@@ -31,11 +31,11 @@ lambda.invoke_async(
     InvokeArgs=json.dumps(
         {
           "s3_source_bucket": "MyS3Bucket",
-          "s3_source_key": "/path/to/video.mp4",
-          "s3_target_bucket": "OPTIONAL_BUCKET_KEEP_TEMP_FILES", # if you don't have read access to source bucket
-          "s3_target_folder": "/temp/folder", # Temp folder keeps staging files, such as sampled images and moderation result
-          "sample_frequency": 2, # numbers of images per second
-          "min_confidence": 50, # Confidence threshold
+          "s3_source_key": "path/to/video.mp4",
+          "s3_target_bucket": "OPTIONAL_BUCKET_KEEP_TEMP_FILES", # Optional. if you don't have read access to source bucket
+          "s3_target_folder": "temp/folder", # Oprion. Temp folder keeps staging files, such as sampled images and moderation result
+          "sample_frequency": 2, # Optional. numbers of images per second
+          "min_confidence": 50, # Optional. Confidence threshold
           "sns_topic_arn": "arn:aws:sns:us-east-1:122702569249:cm-rek-video-sampling-topic" # Optional
         }
     )
@@ -62,11 +62,11 @@ sfn.start_execution(
     input=json.dumps(
         {
           "s3_source_bucket": "MyS3Bucket",
-          "s3_source_key": "/path/to/video.mp4",
-          "s3_target_bucket": "OPTIONAL_BUCKET_KEEP_TEMP_FILES", # if you don't have read access to source bucket
-          "s3_target_folder": "/temp/folder", # Temp folder keeps staging files, such as sampled images and moderation result
-          "sample_frequency": 2, # numbers of images per second
-          "min_confidence": 50, # Confidence threshold
+          "s3_source_key": "path/to/video.mp4",
+          "s3_target_bucket": "OPTIONAL_BUCKET_KEEP_TEMP_FILES", # Optional. if you don't have read access to source bucket
+          "s3_target_folder": "temp/folder", # Oprion. Temp folder keeps staging files, such as sampled images and moderation result
+          "sample_frequency": 2, # Optional. numbers of images per second
+          "min_confidence": 50, # Optional. Confidence threshold
           "sns_topic_arn": "arn:aws:sns:us-east-1:122702569249:cm-rek-video-sampling-topic" # Optional
         }
     ),
