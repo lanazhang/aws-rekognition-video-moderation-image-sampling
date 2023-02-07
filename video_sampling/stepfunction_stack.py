@@ -77,7 +77,7 @@ class StepFunctionsStack(Stack):
 
         if sm_json is not None:
             sm_json = sm_json.replace("##LAMBDA_CAPTURE_VIDEO_FRAMES##", f"arn:aws:lambda:{self.region}:{self.account_id}:function:rek-video-image-sampling-capture-frames-{self.instance_hash}")
-            sm_json = sm_json.replace("##LAMBDA_MODERATE_IMAGE##", f"arn:aws:lambda:{self.region}:{self.account_id}:function:rek-video-image-sampling-consolidate-{self.instance_hash}")
+            sm_json = sm_json.replace("##LAMBDA_MODERATE_IMAGE##", f"arn:aws:lambda:{self.region}:{self.account_id}:function:rek-video-image-sampling-moderate-image-{self.instance_hash}")
             sm_json = sm_json.replace("##LAMBDA_CONSOLIDATION##", f"arn:aws:lambda:{self.region}:{self.account_id}:function:rek-video-image-sampling-consolidate-{self.instance_hash}")
             
         cfn_state_machine = _aws_stepfunctions.CfnStateMachine(self, f'rek-video-sampling-workload-{self.instance_hash}',
