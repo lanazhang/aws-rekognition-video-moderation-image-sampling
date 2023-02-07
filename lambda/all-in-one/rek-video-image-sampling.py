@@ -1,15 +1,3 @@
-'''
-Sample trigger:
-{
-  "s3_source_bucket": "SOURCE_S3_BUCKET",
-  "s3_source_key": "SOURCE_S3_FOLDER",
-  "s3_target_bucket": "OPTINOAL",
-  "s3_target_folder": "OPTINOAL",
-  "sample_frequency": 0.5, # 1 frame every 2 seconds
-  "min_confidence": 50,
-  "sns_topic_arn": "SNS_TOPIC_ARN"
-}
-'''
 import json
 import boto3
 import os
@@ -17,8 +5,9 @@ import subprocess
 
 IMAGE_NAME_EXTENSION = '.png'
 LOCAL_DIR = '/tmp'
-SAMPLE_FREQUENCY = 0.5 # 1 image every 2 seconds
-    
+SAMPLE_FREQUENCY = 2 # 2 image every 1 seconds
+API_NAME = 'cm_video_moderation_image_sampling'
+
 s3 = boto3.client('s3')
 rekognition = boto3.client('rekognition')
 sns = boto3.client('sns')
@@ -52,6 +41,10 @@ def lambda_handler(event, context):
     
     min_confidence = event.get("min_confidence")
     sns_topic_arn = event.get("sns_topic_arn")
+    
+    job_id = event.get("job_id")
+    if job_id is None or len(job_id) == 0:
+        job_id = f'{s3_source_bucket}_{s3_source_key}'.replace('/','_').replace('.','_')
     # -- Validation end --
     
     # Download video to local disk
@@ -71,7 +64,7 @@ def lambda_handler(event, context):
         if file.endswith(IMAGE_NAME_EXTENSION):
             # convert file name from sequence to time position
             seq = float(file.replace(IMAGE_NAME_EXTENSION,''))
-            ms_pos = 1/sample_frequency * seq * 1000
+            ms_pos = 1/sample_frequency * (seq-1) * 1000
             s3.upload_file(f'{LOCAL_DIR}/{file}', s3_target_bucket, f'{s3_target_folder}/{ms_pos}.png')
             
             # moderate image
@@ -82,7 +75,16 @@ def lambda_handler(event, context):
         # Delete local file: image or video
         os.remove(f'{LOCAL_DIR}/{file}')
     
+    # sort labels
+    labels.sort(key=lambda x: x["Timestamp"], reverse=False)
+    
     result = {
+            "JobId": job_id,
+            "API": API_NAME,
+            "Video": {
+                "S3Bucket": s3_source_bucket,
+                "S3ObjectName": s3_source_key
+            },
             "ModerationLabels": labels
         }
         
