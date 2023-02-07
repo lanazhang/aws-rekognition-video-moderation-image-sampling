@@ -24,7 +24,7 @@ The Lambda function manages the below logical steps in one place:
 
 [Lambda source code](lambda/all-in-one/rek-video-image-sampling.py)
 
-[Deploymnet logic with Lambda Layer](video_sampling/lambda_stack.py)
+[Deployment logic with Lambda Layer](video_sampling/lambda_stack.py)
 
 Invoke the Lambda function from your existing code in async mode as below:
 ```
@@ -87,7 +87,7 @@ sfn_client.start_execution(
 
 [Lambda: consolidation](lambda/consolidation/rek-video-image-sampling-consolidate.py)
 
-[Deploymnet logic](video_sampling/stepfunction_stack.py)
+[Deployment logic](video_sampling/stepfunction_stack.py)
 
 You can test the Lambda or the Step Functions solutions directly by sending the JSON payload to the Lambda and Step Functions state machine using the AWS console, CLI, or SDK.
 
