@@ -1,5 +1,5 @@
 
-# Rekognition Video Moderation - image sampling solution
+# Amazon Rekognition Video Moderation - image sampling solution
 
 Amazon Rekognition is an AWS AI service that offers pre-trained APIs to support image and video moderation. 
 
