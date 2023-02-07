@@ -8,7 +8,7 @@ One approach to moderate videos is to model video data as a sample of image fram
 For more information about Rekognition video moderation comparision, refer to [this blog post](https://aws.amazon.com/blogs/machine-learning/how-to-decide-between-amazon-rekognition-image-and-video-api-for-video-moderation/) which compares the image and video APIs in terms of accuracy, cost, performance and architectural complexity.
 -->
 This repo contains two solutions to help you to implement video moderation using Rekognition image API. 
-Both solutions offer a similiar interface as the Rekognition Video moderation API. 
+Both solutions offer a similar interface as the Rekognition Video moderation API, which can invoke asynchronizely and send moderation results to an SNS topic.
 So you can easily replace your logic to switch to Image moderation API.
 
 You can deploy the two solutions to your AWS account using CDK by following the instruction.
