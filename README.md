@@ -13,7 +13,7 @@ So you can easily replace your logic to switch to Image moderation API.
 
 You can deploy the two solutions to your AWS account using CDK by following the instruction.
 
-### All-in-one Lambda function
+### Solution I: All-in-one Lambda function
 The Lambda function manages the below logical steps in one place:
 1. Download the video from the S3 bucket to the local disk
 2. Sample images from the video based on a given interval using ffmpeg (default interval: 2 frames per second)
@@ -50,7 +50,7 @@ lambda_client.invoke_async(
 This solution is light to deploy but only suitable for short-form videos. It may timeout if the video is too long, with a high resolution, and requires to sample the video in a high frequency.
 The max timeout setting for Lambda is 15 minutes.
 
-### Step Functions + Lambda
+### Solution II: Step Functions + Lambda
 This solution uses Step Functions state machine to orchestrate Lambda functions. 
 It prevents the timeout issue could happen in the first single Lambda function solution, as the workflow will iterate through the sampled images and call a Lambda function one by one.
 It is ideal for use cases when you need to moderate large videos in a high frequency.
