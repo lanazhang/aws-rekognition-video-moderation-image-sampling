@@ -4,6 +4,7 @@ from aws_cdk import (
     aws_lambda as _lambda,
     RemovalPolicy,
     aws_stepfunctions as _aws_stepfunctions,
+    CfnOutput
 )
 from constructs import Construct
 import os
@@ -84,3 +85,5 @@ class StepFunctionsStack(Stack):
             state_machine_name=f'rek-video-sampling-workload-{self.instance_hash}', 
             role_arn=create_step_function_role(self, self.region, self.account_id).role_arn,
             definition_string=sm_json)
+
+        CfnOutput(self, id="StepFunctionsStateMachineName", value=f'rek-video-sampling-workload-{self.instance_hash}', export_name="StepFunctionsStateMachineName")

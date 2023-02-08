@@ -2,7 +2,8 @@ from aws_cdk import (
     Duration,
     Stack,
     aws_lambda as _lambda,
-    RemovalPolicy
+    RemovalPolicy,
+    CfnOutput
 )
 from constructs import Construct
 import os
@@ -40,3 +41,5 @@ class LambdaStack(Stack):
             memory_size=10240,
             layers=[ffmpeg_layer]
         )
+        
+        CfnOutput(self, id="LambdaFunctionName", value=f"rek-video-image-sampling-{self.instance_hash}", export_name="LambdaFunctionName")
