@@ -89,13 +89,15 @@ def lambda_handler(event, context):
         }
         
     # send result to SNS topic
-    if sns_topic_arn is not None:
-        sns_response = sns.publish(
-            TopicArn=sns_topic_arn,
-            Message=json.dumps(result)
-        )
-        print(sns_response)
-
+    try:
+        if sns_topic_arn is not None:
+            sns_response = sns.publish(
+                TopicArn=sns_topic_arn,
+                Message=json.dumps(result)
+            )
+    except Exception as ex:
+        print("Failed to send message to the SNS topic:", ex)
+        
     return {
         'statusCode': 200,
         'body': result

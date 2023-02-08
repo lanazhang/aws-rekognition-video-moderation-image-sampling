@@ -49,10 +49,13 @@ def lambda_handler(event, context):
         }
         
     # Send SNS message
-    sns_response = sns.publish(
-        TopicArn=sns_topic_arn,
-        Message=json.dumps(result)
-    )
+    try:
+        sns_response = sns.publish(
+            TopicArn=sns_topic_arn,
+            Message=json.dumps(result)
+        )
+    except Exception as ex:
+        print("Failed to send the SNS message:", ex)
     
     return {
         'statusCode': 200,
