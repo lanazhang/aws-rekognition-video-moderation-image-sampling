@@ -186,3 +186,6 @@ cdk deploy LambdaAllInOneStack
 # Deloy the Step Functions solution
 cdk deploy StepFunctionWorkflowStack 
 ```
+Once the deployment completes, you can find the Lambda or the Step Function names in the bash console. You can also find them in the CloudFormation console by checking the output in stack **LambdaAllInOneStack** and **StepFunctionWorkflowStack**.
+
+Both the Lambda Function and the Step Function State Machine names are in the pattern of **rek-video-image-sampling-XXXX**
