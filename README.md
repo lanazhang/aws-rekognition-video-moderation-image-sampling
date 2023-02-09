@@ -96,6 +96,7 @@ You can test the Lambda or the Step Functions solutions directly by sending the 
 :bulb: You can skip this section if using CloudShell to deploy the CDK package or the other AWS services support bash command from the same AWS account (ex. Cloud9). This section is required if you run from a self-managed environment such as a local desktop.
 </summary>
 
+
 - [ ] Install Node.js
 https://nodejs.org/en/download/
 
@@ -121,6 +122,8 @@ pip install virtualenv
 aws configure                                                                     
  ```                      
 </details>
+
+![Open CloudShell](static/cloudshell.png)
 
 ### Deploy the CDK package
 
