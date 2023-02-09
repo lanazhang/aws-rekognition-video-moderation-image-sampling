@@ -168,12 +168,12 @@ export CDK_DEFAULT_ACCOUNT=[YOUR_ACCOUNT_ID]
 export CDK_DEFAULT_REGION=[YOUR_TARGET_REGION]
 ```
 
-7. Bootstrap CDK
+7. Bootstrap CDK - this step will launch a CloudFormation stack to provision the CDK package, which will take ~2 minutes.
 ```
 cdk bootstrap aws://${CDK_DEFAULT_ACCOUNT}/${CDK_DEFAULT_REGION}
 ```
 
-8. Deploy CDK package
+8. Deploy CDK package - this step will launch both or one of the solutions, which will take ~5 minutes.
 ```
 # Deloy both solutions
 cdk deploy --all --requires-approval never
