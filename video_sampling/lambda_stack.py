@@ -30,8 +30,8 @@ class LambdaStack(Stack):
                                      )
 
         # Lambda: rek-video-image-sampling
-        lambda_s3_trigger = _lambda.Function(self, 
-            id='s3-trigger', 
+        lambda_all_in_one = _lambda.Function(self, 
+            id='all-in-one', 
             function_name=f"rek-video-image-sampling-{self.instance_hash}", 
             runtime=_lambda.Runtime.PYTHON_3_9,
             handler='rek-video-image-sampling.lambda_handler',
